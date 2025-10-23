@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play - SheepStudiosGames</title>
+<style>
+:root { --bg:#0b0b0b; --white:#f7f7f7; }
+body {
+  margin:0; background:var(--bg); color:var(--white);
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  display:flex; flex-direction:column; height:100vh;
+}
+header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 20px; background:#0e0e0e; border-bottom:1px solid rgba(255,255,255,0.05);
+}
+header h1 { margin:0; font-size:18px; }
+button.back {
+  background:transparent; border:1px solid rgba(255,255,255,0.2);
+  color:var(--white); padding:6px 12px; border-radius:8px;
+  cursor:pointer; transition:all .15s ease;
+}
+button.back:hover { background:var(--white); color:#000; }
+iframe {
+  flex:1; width:100%; border:none; border-radius:0;
+}
+.loader {
+  text-align:center; color:var(--white); font-size:15px;
+  animation:fade 1.5s infinite alternate; margin-top:10px;
+}
+@keyframes fade { from{opacity:0.4;} to{opacity:1;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>🐑 SheepStudiosGames</h1>
+  <button class="back" onclick="window.location.href='SheepStudiosGames_final.html'">← Back</button>
+</header>
+<div id="loader" class="loader">Connecting through SheepProxy...</div>
+<iframe id="gameFrame"></iframe>
+<script>
+const params = new URLSearchParams(window.location.search);
+const gameUrl = params.get("game");
+const frame = document.getElementById("gameFrame");
+const loader = document.getElementById("loader");
+if (gameUrl) {
+  const proxied = "https://sheepproxxys.zoiddz10.workers.dev/?url=" + encodeURIComponent(gameUrl);
+  frame.src = proxied;
+  frame.onload = () => loader.style.display = "none";
+} else {
+  loader.textContent = "No game specified.";
+}
+</script>
+</body>
+</html>
